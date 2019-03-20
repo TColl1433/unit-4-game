@@ -16,6 +16,12 @@ var resetAndStart = function () {
 
     $(".crystals").empty();
 
+    var images = ["assets/images/crystal1.svg",
+        "assets/images/crystal2.svg",
+        "assets/images/crystal3.svg",
+        "assets/images/crystal4.svg"
+    ]
+
     random_result = Math.floor(Math.random() * 69) + 30;
 
     $("#result").html('Random Result: ' + random_result);
@@ -29,6 +35,11 @@ var resetAndStart = function () {
             "class": 'crystal',
             "data-random": random
         });
+
+        crystal.css({
+            "background-image": "url('" + images[i] + "')",
+
+        })
 
         //crystal.html(random)
 
@@ -49,7 +60,7 @@ resetAndStart();
 // event delegation
 $(document).on('click', ".crystal", function () {
 
-
+    //turning this into a number
     var num = parseInt($(this).attr('data-random'));
 
     previous += num;
