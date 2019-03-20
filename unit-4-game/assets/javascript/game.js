@@ -12,42 +12,69 @@ var previous = 0;
 
 
 
-random_result = Math.floor(Math.random() * 69) + 30;
+var resetAndStart = function () {
 
-$("#result").html('Random Result: ' + random_result);
+    $(".crystals").empty();
 
-for (var i = 0; i < 4; i++) {
+    random_result = Math.floor(Math.random() * 69) + 30;
 
-    var random = Math.floor(Math.random() * 11) + 1;
+    $("#result").html('Random Result: ' + random_result);
 
-    var crystal = $("<div>");
-    crystal.attr({
-        "class": 'crystal',
-        "data-random": random
-    });
+    for (var i = 0; i < 4; i++) {
 
-    crystal.html(random)
+        var random = Math.floor(Math.random() * 11) + 1;
 
-    $(".crystals").append(crystal);
+        var crystal = $("<div>");
+        crystal.attr({
+            "class": 'crystal',
+            "data-random": random
+        });
+
+        //crystal.html(random)
+
+        $(".crystals").append(crystal);
+
+    }
+
+    $("#previous").html("Total Score:" + previous);
 
 }
 
-$(".crystal").on('click', function () {
+
+
+resetAndStart();
+
+
+
+// event delegation
+$(document).on('click', ".crystal", function () {
 
 
     var num = parseInt($(this).attr('data-random'));
 
     previous += num;
 
-    if (previous > random_result) {
-        lose--;
+    $("#previous").html("Total Score:" + previous);
 
-        $("#lose").html(lose);
+
+
+    if (previous > random_result) {
+        lose++;
+
+        $("#lose").html("You Lose" + lose);
+
+        previous = 0;
+
+        resetAndStart();
     }
     else if (previous === random_result) {
         win++;
 
-        $("#win").html(win);
+        $("#win").html("You Win" + win);
+
+        previous = 0;
+
+        resetAndStart();
 
     }
 
